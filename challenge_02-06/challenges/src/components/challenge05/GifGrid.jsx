@@ -59,7 +59,7 @@ export const GifGrid = ({ category }) => {
 		<div className="gif-grid">
 			<h3>{category}</h3>
 			{gifs.map((gif) => (
-				<GifItem key={gif.id} gif={gif} />
+				<GifItem key={gif.id} gif={gif}/>
 			))}
 		</div>
 	);
