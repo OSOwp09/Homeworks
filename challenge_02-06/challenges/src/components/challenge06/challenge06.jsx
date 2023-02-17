@@ -3,6 +3,8 @@ import { AddCategory } from "./AddCategory";
 import { GifGrid } from "./GifGrid";
 
 export const Challenge06 = () => {
+
+	const [categories, setCategories] = useState([''])
 	
 	const onAddCategory = (category) => {
 		setCategories((list) => [...list, category]);

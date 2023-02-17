@@ -3,6 +3,7 @@ export const GifItem = ({ gif }) => {
 	return (
 		<div className="gif-item">
 			<h4>{gif.title}</h4>
+			<img src={gif.url}/>
 		</div>
 	);
 };
