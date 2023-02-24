@@ -13,9 +13,16 @@ export const Challenge06 = () => {
 	return (
 		<>
 			<h1>GifExpert</h1>
-
+			
 			<AddCategory onAddCategory={onAddCategory} />
-			<GifGrid/>
+			{
+				categories.map(
+					(category, key)=>{
+						return <GifGrid category={category} key={key} />
+					}
+				)
+			}
+			{/* <GifGrid/> */}
 		</>
 	);
 }; 
