@@ -2,14 +2,16 @@ import { useCounter } from "../hooks/useCounter";
 import { useFetch } from "../hooks/useFetch";
 
 export const Challenge09 = () => {
-	const { counter, incrementer } = useCounter(1);
+	const { counter, handleAdd,incrementer } = useCounter(1);
 	const { data, isLoading, hasError } = useFetch(
-		`https://api.breakingbadquotes.xyz/v1/quotes/2${counter}`
+		`https://api.breakingbadquotes.xyz/v1/quotes/${counter}`
 	);
 
 	return (
 		<>
 			<h1>MultipleCustomHooks</h1>
+            <button onClick={()=>handleAdd()}>
+                Change quote</button>
 			<hr />
 			{
                 isLoading ? (
@@ -23,6 +25,7 @@ export const Challenge09 = () => {
                     </blockquote>
                 )
             }
+
 		</>
 	);
 };
