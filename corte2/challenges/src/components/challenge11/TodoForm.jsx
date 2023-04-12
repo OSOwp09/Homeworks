@@ -1,29 +1,22 @@
-import React, { useState } from "react";
+const TodoForm = ({ addTodo }) => {
 
-const TodoForm = ({ handleNewTodo }) => {
-	const [inputValue, setInputValue] = useState("");
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		handleNewTodo({
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		const description = event.target.elements.description.value;
+		addTodo({
 			id: new Date().getTime(),
-			description: inputValue,
+			description: description,
 			done: false,
 		});
-		setInputValue("");
+		event.target.reset();
 	};
 
 	return (
 		<div className="col-5">
-			<h4>Agregar TODO</h4>
+			<h4> Agregar TODO </h4>
 			<hr />
 			<form onSubmit={handleSubmit}>
-				<input
-					type="text"
-					className="form-control"
-					value={inputValue}
-					onChange={(e) => setInputValue(e.target.value)}
-				/>
+				<input type="text" className="form-control" name="description" />
 				<button className="btn btn-outline-primary mt-1">Agregar</button>
 			</form>
 		</div>

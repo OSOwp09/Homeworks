@@ -1,16 +1,22 @@
-const TodoList = ({ todos, handleDelete }) => {
+const TodoList = ({ todos, deleteTodo,toggleTodo }) => {
 	return (
 		<div className="col-7">
 			<ul className="list-group">
 				{todos.map((todo) => (
 					<li
-						className="list-group-item d-flex justify-content-between"
+						className={`list-group-item d-flex justify-content-between`}
 						key={todo.id}
 					>
-						<span className="align-self-center">{todo.description}</span>
+						<span
+							onClick={() => toggleTodo(todo.id)}
+							className={`${todo.done ? "text-decoration-line-through" : ""}`}
+						>
+							{todo.description}
+						</span>
+
 						<button
 							className="btn btn-danger"
-							onClick={() => handleDelete(todo.id)}
+							onClick={() => deleteTodo(todo.id)}
 						>
 							Borrar
 						</button>

@@ -1,7 +1,7 @@
 import React from "react";
-import { useReducer } from "react";
-import TodoReducer from "./TodoReducer";
 import useTodo from "./useTodo";
+import TodoList from "./TodoList";
+import TodoForm from "./TodoForm";
 
 export const TodoApp = () => {
 	const {
@@ -12,18 +12,6 @@ export const TodoApp = () => {
 		countTodos,
 		countPendingTodos,
 	} = useTodo();
-
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		const description = event.target.elements.description.value;
-		addTodo({
-			id: new Date().getTime(),
-			description: description,
-			done: false,
-		});
-		event.target.reset();
-	};
-
 	return (
 		<>
 			<h1>
@@ -32,41 +20,13 @@ export const TodoApp = () => {
 			<hr />
 
 			<div className="row">
-				<div className="col-7">
-					<ul className="list-group">
-						{todos.map((todo) => (
-							<li
-								className={`list-group-item d-flex justify-content-between ${
-									todo.done ? "text-decoration-line-through" : ""
-								}`}
-								key={todo.id}
-							>
+				<TodoList
+					todos={todos}
+					deleteTodo={deleteTodo}
+					toggleTodo={toggleTodo}
+				/>
 
-								<span
-									onClick={() => toggleTodo(todo.id)}
-									className={`${todo.done? 'text-decoration-line-through':""}`}
-								>
-									{todo.description}
-								</span>
-								
-								<button
-									className="btn btn-danger"
-									onClick={() => deleteTodo(todo.id)}
-								>
-									Borrar
-								</button>
-							</li>
-						))}
-					</ul>
-				</div>
-				<div className="col-5">
-					<h4> Agregar TODO </h4>
-					<hr />
-					<form onSubmit={handleSubmit}>
-						<input type="text" className="form-control" name="description" />
-						<button className="btn btn-outline-primary mt-1">Agregar</button>
-					</form>
-				</div>
+				<TodoForm addTodo={addTodo} />
 			</div>
 		</>
 	);

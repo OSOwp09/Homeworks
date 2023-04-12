@@ -23,7 +23,7 @@ const useTodo = () => {
 		dispatchTodo({ type: "add", payload: newTodo });
 	};
 
-	const deleteTodo = (id) => {
+	const deleteTodo = (id) => { 
 		dispatchTodo({ type: "delete", payload: id });
 	};
 
