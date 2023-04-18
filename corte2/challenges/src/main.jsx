@@ -6,14 +6,11 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import { Registro } from "./components/projectFirebase/registro";
-
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
 		<Provider store={store}>
       <BrowserRouter>
-        {/* <Registro/> */}
         <App/>
       </BrowserRouter>
     </Provider>

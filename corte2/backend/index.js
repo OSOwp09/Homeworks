@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 require('dotenv').config()
 
 //crear Express App
@@ -6,12 +7,13 @@ const app = express()
 
 app.use(express.static('public'))
 
+// parse application/json
+app.use(bodyParser.json())
+
+
 //Rutas
-app.get('/',(req, res)=>{
-    res.json({
-        ok: true
-    })
-})
+app.use('/api/auth', require('./routes/auth'))
+
 
 //escuchar
 app.listen(4000, () => {
