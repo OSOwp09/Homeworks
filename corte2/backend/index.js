@@ -1,21 +1,28 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-require('dotenv').config()
+const express = require("express");
+const bodyParser = require("body-parser");
+require("dotenv").config();
+const { dbConnection } = require("./daatabase/config");
+const cors = require("cors");
 
 //crear Express App
-const app = express()
+const app = express();
 
-app.use(express.static('public'))
+//Base datos
+dbConnection();
+
+//CORS
+app.use(cors());
+
+app.use(express.static("public"));
 
 // parse application/json
-app.use(bodyParser.json())
-
+app.use(bodyParser.json());
 
 //Rutas
-app.use('/api/auth', require('./routes/auth'))
-
+app.use("/api/auth", require("./routes/auth"));
+app.use("/api/task", require('./routes/task'))
 
 //escuchar
 app.listen(4000, () => {
-    console.log('Servidor corriendo en puerto', process.env.PORT);
-})
+	console.log("Servidor corriendo en puerto", process.env.PORT);
+});

@@ -5,10 +5,10 @@ import {
 	updateProfile,
 } from "firebase/auth";
 import { auth } from "../../../firebase/config";
-import { authSlice } from "./AuthSlice";
+import { authSlice, register } from "./AuthSlice";
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
-export const registerAuth = (email, password) => {
+export const registerAuth = (email, password, name) => {
 	//const {auth} = authSlice(state => state.auth)
 	return async (dispatch) => {
 		const response = await createUserWithEmailAndPassword(
@@ -16,9 +16,10 @@ export const registerAuth = (email, password) => {
 			email,
 			password
 		);
+
 		if (response) {
 			await updateProfile(auth.currentUser, {
-				displayName: "camilo",
+				displayName: name.split("@")[0],
 				photoURL: "",
 			});
 

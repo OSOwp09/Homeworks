@@ -7,9 +7,12 @@ const {
 	loginUsuario,
 	revalidarToken,
 } = require("../Controllers/auth");
+
 const { validarCampos } = require("../middlewares/validar-campos");
+const { validarJWT } = require("../middlewares/validar-token");
 
 //-----challenge 17------------
+//-------Login-----------------
 router.post(
 	"/",
 	[
@@ -17,11 +20,11 @@ router.post(
 		check("password").isLength({ min: 6 }),
 		validarCampos,
 	],
-
 	loginUsuario
 );
-//--------------------------
+//----------------------------
 
+//------Registro--------------
 router.post(
 	"/new",
 	[
@@ -33,6 +36,5 @@ router.post(
 	crearUsuario
 );
 
-router.get("/renew", revalidarToken);
-
+router.get("/renew", validarJWT, revalidarToken);
 module.exports = router;

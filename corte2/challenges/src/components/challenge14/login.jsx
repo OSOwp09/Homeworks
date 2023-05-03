@@ -1,7 +1,11 @@
-import { useState, useEffect,useMemo } from "react";
-import { onAuthStateChanged, } from "firebase/auth";
-import { useDispatch, } from "react-redux";
-import { loginAuth, logoutAuth, logWithGoogleAuth } from "../../store/slices/auth/Thunks";
+import { useState, useEffect, useMemo } from "react";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import {
+	loginAuth,
+	logoutAuth,
+	logWithGoogleAuth,
+} from "../../store/slices/auth/Thunks";
 import { login, logout, authSlice } from "../../store/slices/auth/AuthSlice";
 import { auth } from "../../firebase/config";
 
@@ -11,17 +15,16 @@ function LoginForm() {
 	const [currentUser, setCurrentUser] = useState("");
 	const [isLoged, setIsLoged] = useState(false);
 	const dispatch = useDispatch();
-    
 
-    const checkAuth = () => {
-        console.log();
-    }
-    
-    const checkAuthMemo = useMemo(()=>checkAuth(),[auth.name])
+	const checkAuth = () => {
+		console.log();
+	};
 
+	const checkAuthMemo = useMemo(() => checkAuth(), [auth.name])
+	
+	console.log(auth.currentUser.uid);
 
 	useEffect(() => {
-        
 		onAuthStateChanged(auth, async (user) => {
 			if (!user) return dispatch(logout());
 			dispatch(login({ email: user.email }));
@@ -44,17 +47,17 @@ function LoginForm() {
 		}
 	};
 
-    const handleSubmit = (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(loginAuth(email, password));
 	};
 
 	const handleLoginWithGoogle = () => {
-        try {
-            dispatch(logWithGoogleAuth());
-        } catch (error) {
-            console.log(error.message);
-        }
+		try {
+			dispatch(logWithGoogleAuth());
+		} catch (error) {
+			console.log(error.message);
+		}
 	};
 
 	return (
@@ -81,7 +84,9 @@ function LoginForm() {
 				</div>
 				{!isLoged ? <button type="submit">Login</button> : null}
 			</form>
-			{!isLoged ? <button onClick={handleLoginWithGoogle}>Login with Google</button>: null}
+			{!isLoged ? (
+				<button onClick={handleLoginWithGoogle}>Login with Google</button>
+			) : null}
 			{isLoged ? <button onClick={handleLogout}>Logout</button> : null}
 		</>
 	);
