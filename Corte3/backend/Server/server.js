@@ -8,7 +8,7 @@ class Server {
 	constructor() {
 		this.headers = {
 			cors: {
-				origin: location.hostname,
+				origin: "http://127.0.0.1:5500",
 				methods: ["GET", "POST"],
 			},
 		};
@@ -17,7 +17,7 @@ class Server {
 		this.app = express();
 		this.port = process.env.PORT;
 		this.server = require("http").createServer(this.app);
-		this.io = require("socket.io")(this.server, this.headers);
+		this.io = require('socket.io')(this.server, this.headers);
 
 		this.paths = {
 			auth: "/api/auth",
@@ -27,6 +27,9 @@ class Server {
 		this.connectToDB();
 		this.addMiddleware();
 		this.setRoutes();
+
+		//Sockets
+		this.sockets()
 	}
 
 	//Base de datos
@@ -52,7 +55,7 @@ class Server {
 	}
 
 	sockets() {
-		this.io.on("connection", (socket) => socketController(socket, this.io));
+		this.io.on('connection', socket => socketController(socket, this.io));
 	}
 
 	listen() {
