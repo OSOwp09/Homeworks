@@ -15,11 +15,11 @@ const { validarJWT } = require("../middlewares/validar-token");
 //-------Login-----------------
 router.post(
 	"/",
-	[
-		check("email", "El mail es obligatorio").isEmail(),
-		check("password").isLength({ min: 6 }),
-		validarCampos,
-	],
+	// [
+	// 	check("email", "El mail es obligatorio").isEmail(),
+	// 	check("password").isLength({ min: 6 }),
+	// 	validarCampos,
+	// ],
 	loginUsuario
 );
 //----------------------------
