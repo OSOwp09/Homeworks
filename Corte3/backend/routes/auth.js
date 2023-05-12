@@ -13,7 +13,7 @@ const { validarJWT } = require("../middlewares/validar-token");
 
 //-----challenge 17------------
 //-------Login-----------------
-router.post(
+router.get(
 	"/",
 	// [
 	// 	check("email", "El mail es obligatorio").isEmail(),
